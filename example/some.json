@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "first_name": "Ameline",
+        "last_name": "Mahedy",
+        "email": "amahedy0@scribd.com",
+        "gender": "Female",
+        "ip_address": "45.29.237.218"
+    },
+    {
+        "id": 2,
+        "first_name": "Kath",
+        "last_name": "Rabbet",
+        "email": "krabbet1@seesaa.net",
+        "gender": "Female",
+        "ip_address": "240.7.5.134"
+    },
+    {
+        "id": 3,
+        "first_name": "Leonhard",
+        "last_name": "Bearn",
+        "email": "lbearn2@photobucket.com",
+        "gender": "Male",
+        "ip_address": "9.52.240.116"
+    },
+    {
+        "id": 4,
+        "first_name": "Griffie",
+        "last_name": "Deeman",
+        "email": "gdeeman3@people.com.cn",
+        "gender": "Male",
+        "ip_address": "20.75.98.22"
+    },
+    {
+        "id": 5,
+        "first_name": "Findley",
+        "last_name": "Cauldwell",
+        "email": "fcauldwell4@vk.com",
+        "gender": "Male",
+        "ip_address": "64.58.197.240"
+    },
+    {
+        "id": 6,
+        "first_name": "Jolee",
+        "last_name": "Kyle",
+        "email": "jkyle5@dell.com",
+        "gender": "Female",
+        "ip_address": "141.169.57.76"
+    },
+    {
+        "id": 7,
+        "first_name": "Menard",
+        "last_name": "Rowatt",
+        "email": "mrowatt6@csmonitor.com",
+        "gender": "Male",
+        "ip_address": "67.115.166.2"
+    },
+    {
+        "id": 8,
+        "first_name": "Ellswerth",
+        "last_name": "Laffin",
+        "email": "elaffin7@elpais.com",
+        "gender": "Male",
+        "ip_address": "62.162.223.135"
+    },
+    {
+        "id": 9,
+        "first_name": "Glynis",
+        "last_name": "Candish",
+        "email": "gcandish8@about.me",
+        "gender": "Female",
+        "ip_address": "252.246.30.50"
+    },
+    {
+        "id": 10,
+        "first_name": "Hollis",
+        "last_name": "Farnell",
+        "email": "hfarnell9@hhs.gov",
+        "gender": "Male",
+        "ip_address": "103.92.240.250"
+    }
+]
