@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-
 	if len(os.Args) < 2 {
 		_, _ = fmt.Fprintf(os.Stderr, "usage: %s field1:header field2 ... < somefile.json\n", os.Args[0])
 		os.Exit(1)
@@ -39,11 +38,14 @@ func main() {
 	}
 
 	keys := keysOf(os.Args[1:])
+
 	for _, obj := range data {
 		record := []string{}
 
 		for _, name := range keys {
-			record = append(record, fmt.Sprintf("%v", obj[name]))
+			parts := strings.Split(name, ".")
+			val := getValue(parts, obj)
+			record = append(record, fmt.Sprintf("%v", val))
 		}
 
 		err := writer.Write(record)
@@ -51,11 +53,54 @@ func main() {
 			log.Fatalf("can't write record: %v", err)
 		}
 	}
+}
 
+func getValue(keys []string, data interface{}) interface{} {
+
+	if data == nil {
+		return nil
+	}
+
+	mapData, isMap := data.(map[string]interface{})
+	sliceData, isSlice := data.([]interface{})
+
+	key := keys[0]
+	query := strings.Split(key, "=")
+
+	if len(query) == 2 && isSlice {
+		for _, entry := range sliceData {
+			entryMap, ok := entry.(map[string]interface{})
+			if !ok {
+				log.Printf("failed to query non-object within array query=%v entry=%v", query, entry)
+				return nil
+			}
+			thing, ok := entryMap[query[0]]
+			if !ok {
+				// item not present. no biggie
+				continue
+			}
+			thingString := fmt.Sprintf("%v", thing)
+			if thingString == query[1] {
+				return getValue(keys[1:], entry)
+			}
+		}
+		return nil
+	}
+
+	if !isMap {
+		log.Printf("failed to apply key=%v to data=%v", keys, data)
+		return nil
+	}
+
+	val := mapData[keys[0]]
+	if len(keys) == 1 {
+		return val
+	}
+
+	return getValue(keys[1:], val)
 }
 
 func keysOf(args []string) []string {
-
 	keys := []string{}
 
 	for _, h := range args {
@@ -67,7 +112,6 @@ func keysOf(args []string) []string {
 }
 
 func headersOf(args []string) []string {
-
 	heads := []string{}
 
 	for _, h := range args {
