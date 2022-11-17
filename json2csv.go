@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/csv"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -11,7 +12,11 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 2 {
+
+	doTabs := flag.Bool("tab", false, "write tab separators instead of commas")
+	flag.Parse()
+
+	if len(flag.Args()) == 0 {
 		_, _ = fmt.Fprintf(os.Stderr, "usage: %s field1:header field2 ... < somefile.json\n", os.Args[0])
 		os.Exit(1)
 	}
@@ -32,12 +37,16 @@ func main() {
 	writer := csv.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	err = writer.Write(headersOf(os.Args[1:]))
+	if *doTabs {
+		writer.Comma = '\t'
+	}
+
+	err = writer.Write(headersOf(flag.Args()))
 	if err != nil {
 		log.Fatalf("can't write headers: %v", err)
 	}
 
-	keys := keysOf(os.Args[1:])
+	keys := keysOf(flag.Args())
 
 	for _, obj := range data {
 		record := []string{}
